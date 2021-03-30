@@ -1,0 +1,10 @@
+resources:
+  - metallb.yaml
+  - services/Nginx/nginx.yaml
+  - services/MySQL/mysql.yaml
+  - services/PhpMyAdmin/phpmyadmin.yaml
+  - services/WordPress/wordpress.yaml
+  - services/Ftps/ftps.yaml
+  - services/influxdb/influxdb.yaml
+  - services/grafana/grafana.yaml
+  
