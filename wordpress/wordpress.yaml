@@ -23,12 +23,9 @@ metadata:
   labels:
       app: wordpress
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: wordpress
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -40,4 +37,12 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 5050
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - -c
+            - 'pgrep telegraf && pgrep php-fpm7'
+          initialDelaySeconds: 10
+          periodSeconds: 5
 

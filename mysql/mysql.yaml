@@ -34,12 +34,9 @@ metadata:
   labels:
       app: mysql
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: mysql
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -51,6 +48,14 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 3306
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - -c
+            - 'pgrep telegraf && pgrep mysqld_safe'
+          initialDelaySeconds: 10
+          periodSeconds: 5
         env:
         - name: MYSQL_ROOT_USERNAME
           valueFrom:

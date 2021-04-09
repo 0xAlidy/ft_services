@@ -33,12 +33,9 @@ metadata:
   labels:
       app: ftps
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: ftps
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -52,3 +49,11 @@ spec:
         - containerPort: 21
         - containerPort: 30020
         - containerPort: 30021
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - -c
+            - 'pgrep telegraf && pgrep vsftpd'
+          initialDelaySeconds: 10
+          periodSeconds: 5

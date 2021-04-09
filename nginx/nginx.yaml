@@ -34,8 +34,6 @@ spec:
   selector:
     matchLabels: 
       app: nginx
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -45,3 +43,12 @@ spec:
       - name: nginx
         image: nginx-image
         imagePullPolicy: Never
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - -c
+            - 'pgrep telegraf && pgrep sshd && pgrep nginx'
+          initialDelaySeconds: 10
+          periodSeconds: 5
+

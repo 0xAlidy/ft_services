@@ -34,7 +34,6 @@ metadata:
   labels:
       app: influxdb
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: influxdb
@@ -49,6 +48,14 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 8086
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - -c
+            - 'pgrep telegraf && pgrep influxd'
+          initialDelaySeconds: 10
+          periodSeconds: 5
         volumeMounts:
         - name: influxdb-persistent-storage
           mountPath: /var/lib/influxdb

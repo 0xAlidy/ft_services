@@ -22,7 +22,6 @@ metadata:
   labels:
     app: phpmyadmin
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: phpmyadmin
@@ -38,10 +37,12 @@ spec:
         ports:
         - containerPort: 5000
         livenessProbe:
-          httpGet:
-            path: /
-            port: 5000
-          initialDelaySeconds: 15
+          exec:
+            command:
+            - /bin/ash
+            - -c
+            - 'pgrep telegraf && pgrep php-fpm7'
+          initialDelaySeconds: 10
           periodSeconds: 5
         env:
         - name: PMA_HOST
