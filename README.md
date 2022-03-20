@@ -1,4 +1,4 @@
 # ft_services
-Ce sujet a pour but d’approfondir vos connaissances en vous faisant utiliser Kubernetes afin de vous faire virtualiser un réseau et de vous faire découvrir à quoi ressemble
-réellement un environnement de production.
-- Vous allez faire ce qu’on appelle du "clusturing"
+This project will introduce you to Kubernetes.
+- You will discover cluster management and deployment with Kubernetes.
+- You will virtualize a network and do "clustering".
